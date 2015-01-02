@@ -63,7 +63,7 @@ module.exports = new (function(){
 	//
 	// Login
 	//
-	this.login = function(p, callback){
+	this.login = function(p, req, callback){
 
 		// Take the obj and make a call to the server
 		if(	p.oauth && p.oauth.version === 1 ){
@@ -288,7 +288,7 @@ module.exports = new (function(){
 		//
 		if( ( p.code || p.refresh_token ) && p.redirect_uri ){
 
-			self.login( p, function(response){
+			self.login( p, req, function(response){
 
 				// Redirect page
 				// With the Auth response, we need to return it to the parent
@@ -310,7 +310,7 @@ module.exports = new (function(){
 
 			self.location = url.parse("http"+(req.connection.encrypted?"s":'')+'://'+req.headers.host+req.url);
 
-			self.loginOAuth1(p, function(path,hash){
+			self.loginOAuth1(p, req, function(path,hash){
 				redirect(path,hash);
 			});
 
@@ -476,7 +476,7 @@ module.exports = new (function(){
 	// OAuth 1
 	// Thi handles the OAuth1 authentication flow
 	//
-	this.loginOAuth1 = function(p,callback){
+	this.loginOAuth1 = function(p, req, callback){
 
 		//
 		// Get the Authorization path
