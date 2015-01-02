@@ -255,10 +255,11 @@ module.exports = new (function(){
 
 			self.utils.log("REDIRECT", url );
 
-			res.writeHead(302, {
-				'Access-Control-Allow-Origin':'*',
-				'Location': url
-			} );
+			res.statusCode = 302;
+
+			res.setHeader('Access-Control-Allow-Origin', '*');
+			res.setHeader('Location', url);
+			
 			res.end();
 		}
 
